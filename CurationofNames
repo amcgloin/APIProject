@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Sep 17 12:36:19 2018
+
+@author: Aidan
+"""
+
+import php
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+with urlopen('https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=201720180AB245') as homepage:
+    soup = BeautifulSoup(homepage.read(), 'html.parser')
+
+    # Finds all the aye votes in the last vote
+    ayes = soup.find('span', {'title': 'Ayes'}).next_element.next_element.next_element.next_element
+
+    # Finds all the nay votes in the last vote
+    noes = soup.find('span', {'title': 'Noes'}).next_element.next_element.next_element.next_element
+
+#soup.find_all(string="Elsie")
+
+#Proves the program finds the right element
+print(ayes)
+
+#Proves the program finds the right element
+#print(noes)
+
+
+
+#Searches the strings to find the representative's vote
+#doest not work
+#if (strpos(ayes, 'Cunningham') !==true){
+ #       print ('voted for')
+   #       }
+#if (strpos(noes, 'Cunningham') !==true){
+ #       print ('against')
+  #      }
+
