@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 21 20:21:18 2018
+
+@author: Aidan
+"""
+
+import operator
+from bs4 import BeautifulSoup
+from urllib.request import urlopen
+
+#Finds the vote history page of a given bill
+with urlopen('https://leginfo.legislature.ca.gov/faces/billVotesClient.xhtml?bill_id=201720180AB245') as homepage:
+    soup = BeautifulSoup(homepage.read(), 'html.parser')
+
+
+
+#Locates where the table says Assembly floor and follows it up the tree, sideways, and down to the vote counts
+assemblyfloorayes = soup.find(string='Assembly Floor').parent.parent.next_sibling.next_sibling
+assemblyfloornoes = soup.find(string='Assembly Floor').parent.parent.next_sibling.next_sibling.next_sibling.next_sibling
+assemblyfloornovotes = soup.find(string='Assembly Floor').parent.parent.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling.next_sibling
+
+
+
+#print(assemblyfloorayes)
+#print(assemblyfloornoes)
+#print(assemblyfloornovotes)
